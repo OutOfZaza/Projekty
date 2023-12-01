@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="text" id="inputText" placeholder="Wprowadź tekst">
+<p id="outputText"></p>
+<p id="errorText" style="color: red;"></p>
+
+<script>
+    const inputText = document.getElementById('inputText');
+    const outputText = document.getElementById('outputText');
+    const errorText = document.getElementById('errorText');
+
+    inputText.addEventListener('input', function() {
+        const inputValue = inputText.value.trim();
+
+        const errorMessage = validate(inputValue);
+
+        if (errorMessage) {
+            errorText.textContent = errorMessage;
+            outputText.textContent = '';
+        } else {
+            errorText.textContent = '';
+            outputText.textContent = inputValue;
+        }
+    });
+
+    function validate(value) {
+        if (value === '') {
+            return null;
+        }
+        if (isNumberInvalid(value)) {
+            return 'Wprowadzona wartość nie może być liczbą!';
+        } else if (isLengthExceeded(value)) {
+            return 'Wprowadzona wartość musi mieć 25 znaków lub mniej!';
+        }
+
+        return null;
+    }
+
+    function isNumberInvalid(value) {
+        return !isNaN(value);
+    }
+
+    function isLengthExceeded(value) {
+        return value.length > 25;
+    }
+</script>
+
+</body>
+</html>
